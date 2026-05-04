@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI & Plagiarism Checker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1> AI & Plagiarism Checker</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        <textarea name="text" placeholder="Enter your text here..."></textarea>
+
+        <p>OR Upload File</p>
+        <input type="file" name="file" accept=".pdf,.docx">
+
+        <button type="submit">Analyze</button>
+    </form>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    {% if ai_result %}
+    <div class="card">
+        <h2> AI Detection</h2>
+        <p><b>Probability:</b> {{ ai_result.probability }}%</p>
+        <p><b>Label:</b> {{ ai_result.label }}</p>
+        <p><b>Reason:</b> {{ ai_result.reason }}</p>
+    </div>
+    {% endif %}
+
+    {% if plag_result %}
+    <div class="card">
+        <h2>📊 Plagiarism Result</h2>
+        <p><b>Plagiarism %:</b> {{ plag_result.plagiarism }}%</p>
+        <p><b>Status:</b> {{ plag_result.status }}</p>
+        <p><b>Reason:</b> {{ plag_result.reason }}</p>
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
